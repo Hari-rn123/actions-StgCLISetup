@@ -1,4 +1,4 @@
-name: 'Setup OneTab'
+name: 'Setup Stg-Cli'
 description: 'Greet someone and record the time'
 inputs:
   who-to-greet:  # id of input

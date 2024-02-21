@@ -1,2 +1,2 @@
-# actions-onetabSetup
+# actions-StgCLISetup
 a action for onetab

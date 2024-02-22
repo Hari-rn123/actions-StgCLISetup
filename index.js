@@ -15,6 +15,8 @@
 // }
 
 const core = require("@actions/core");
+const os = require("os");
+const path = require("path");
 
 try {
   // const workingDirectory = core.getInput('working-directory');

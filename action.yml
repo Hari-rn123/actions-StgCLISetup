@@ -1,6 +1,11 @@
 name: 'Setup Stg-Cli'
 description: 'Setup Stg-Cli environment for system'
 
+inputs:
+  working-directory:
+    description: 'The directory to set as the default working directory'
+    required: true
+    
 runs:
   using: 'node12'
   main: 'index.js'

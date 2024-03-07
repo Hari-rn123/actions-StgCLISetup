@@ -4,7 +4,7 @@ description: 'Setup Stg-Cli environment for system'
 inputs:
   working-directory:
     description: 'The directory to set as the default working directory'
-    required: true
+    required: false
     
 runs:
   using: 'node12'

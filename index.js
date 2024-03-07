@@ -19,7 +19,7 @@ const os = require("os");
 const path = require("path");
 
 try {
-  const workingDirectory = core.getInput('working-directory');
+  const workingDirectory = core.getInput("working-directory") ?? null;
   const curentdir = process.cwd();
   const homedir = os.homedir();
   const relativePath = path.relative(homedir, curentdir);
@@ -27,7 +27,7 @@ try {
     `path metioned are workingDirectory: ${workingDirectory} homedir: ${homedir} relativePath: ${relativePath} curentdir ${curentdir} `
   );
   core.debug(`Setting working directory to: ${workingDirectory}`);
-  process.chdir(workingDirectory);
+  // process.chdir(workingDirectory);
 } catch (error) {
   core.setFailed(error.message);
 }

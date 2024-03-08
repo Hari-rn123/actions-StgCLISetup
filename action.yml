@@ -2,10 +2,29 @@ name: 'Setup Stg-Cli'
 description: 'Setup Stg-Cli environment for system'
 
 inputs:
-  working-directory:
-    description: 'The directory to set as the default working directory'
-    required: false
+  branch:
+    description: 'The branch to pull from'
+    required: true
+    default: 'main'
     
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+          fetch-depth: 0
+          
+    - name: Create GitHub App token
+      uses: actions/create-github-app-token@v1
+      id: create-token
+      with:
+        app_id: ${{ secrets.GITHUB_APP_ID }}
+        private_key: ${{ secrets.GITHUB_APP_PRIVATE_KEY }}
+        permissions: 'write:packages, read:org'  # Adjust permissions as needed
+
+    - name: Pull from branch
+      run: git pull origin ${{ inputs.branch }}
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}

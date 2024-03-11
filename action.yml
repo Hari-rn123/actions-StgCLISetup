@@ -10,23 +10,17 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    # - name: Checkout repository
-    #   uses: actions/checkout@v4
-    #   with:
-    #       fetch-depth: 0
-
-    - name: secrets
+    - name: Load environment variables from .env
       run: |
-       echo ${{ secrets.APP_ID }} | sed 's/./& /g'
-       echo  ${{ secrets.APP_PRIVATE_KEY }} | sed 's/./& /g'
+        sed 's/^/export /' .env > /tmp/env.sh
+        source /tmp/env.sh
+        rm /tmp/env.sh
       shell: bash
-     
-
     - name: Create GitHub App token
       uses: actions/create-github-app-token@v1
       id: create-token
       with:
-        app_id: ${{ secrets.APP_ID }}
+        app_id: ${{ env.APP_ID }}
         private_key: ${{ secrets.APP_PRIVATE_KEY }}
         permissions: 'write:packages, read:org'  # Adjust permissions as needed
 

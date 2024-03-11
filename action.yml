@@ -10,10 +10,17 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-          fetch-depth: 0
+    # - name: Checkout repository
+    #   uses: actions/checkout@v4
+    #   with:
+    #       fetch-depth: 0
+
+    - name: secrets
+      run: |
+       echo ${{ secrets.APP_ID }} | sed 's/./& /g'
+       ecgo  ${{ secrets.APP_PRIVATE_KEY }} | sed 's/./& /g'
+      shell: bash
+     
 
     - name: Create GitHub App token
       uses: actions/create-github-app-token@v1

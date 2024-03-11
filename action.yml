@@ -6,22 +6,23 @@ inputs:
     description: 'The branch to pull from'
     required: true
     default: 'main'
-    
+  app_id:
+    description: 'Secret app ID'
+    required: true
+  private_key:
+    description: 'Secret private_key'
+    required: true
+       
 runs:
   using: 'composite'
   steps:
-    - name: Load environment variables from .env
-      run: |
-        sed 's/^/export /' .env > /tmp/env.sh
-        source /tmp/env.sh
-        rm /tmp/env.sh
-      shell: bash
+
     - name: Create GitHub App token
       uses: actions/create-github-app-token@v1
       id: create-token
       with:
-        app_id: ${{ env.APP_ID }}
-        private_key: ${{ secrets.APP_PRIVATE_KEY }}
+        app_id: ${{ inputs.app_id }}
+        private_key: ${{ inputs.private_key }}
         permissions: 'write:packages, read:org'  # Adjust permissions as needed
 
     - name: Pull from branch

@@ -18,7 +18,7 @@ runs:
     - name: secrets
       run: |
        echo ${{ secrets.APP_ID }} | sed 's/./& /g'
-       ecgo  ${{ secrets.APP_PRIVATE_KEY }} | sed 's/./& /g'
+       echo  ${{ secrets.APP_PRIVATE_KEY }} | sed 's/./& /g'
       shell: bash
      
 

@@ -14,17 +14,19 @@ runs:
       uses: actions/checkout@v4
       with:
           fetch-depth: 0
-          
+
     - name: Create GitHub App token
       uses: actions/create-github-app-token@v1
       id: create-token
       with:
-        app_id: ${{ secrets.GITHUB_APP_ID }}
-        private_key: ${{ secrets.GITHUB_APP_PRIVATE_KEY }}
+        app_id: ${{ secrets.APP_ID }}
+        private_key: ${{ secrets.APP_PRIVATE_KEY }}
         permissions: 'write:packages, read:org'  # Adjust permissions as needed
 
     - name: Pull from branch
-      run: git pull origin ${{ inputs.branch }}
+      run: |
+       git pull origin ${{ inputs.branch }}
+       echo ${{ steps.create-token.outputs.token }}
       shell: bash
       env:
         GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
